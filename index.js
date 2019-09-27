@@ -37,7 +37,19 @@ app.post(`/groceries`, (req, res) => {
 app.patch(`/groceries/:id/increase`, (req, res) => {
     let updatedGrocery = groceries.find(grocery => grocery.id == req.params.id)
     updatedGrocery.quantity++
+    res.json(groceries)
+})
+
+app.patch(`/groceries/:id/decrease`, (req, res) => {
+    let updatedGrocery = groceries.find(grocery => grocery.id == req.params.id)
+    updatedGrocery.quantity--
     res.json(updatedGrocery)
+})
+
+app.delete(`/groceries/:id`, (req, res) => {
+    let deletedGrocery = groceries.filter(grocery => grocery.id == req.params.id)
+    res.json(deletedGrocery)
+    groceries = groceries.filter(grocery => grocery.id != req.params.id)
 })
 
 app.listen(port, () => { console.log(`Listening on port ${port}`)})
